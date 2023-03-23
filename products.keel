@@ -1,0 +1,36 @@
+message BulkProductsInput {
+    productNames ProductInput[]
+}
+
+message ProductInput {
+    name Text
+    sku Text
+}
+
+message ImportResponse {
+    count Number
+}
+
+model Product {
+    fields {
+        name Text
+        sku Text
+    }
+
+    operations {
+        create createProduct() with (name, sku)
+        list listProducts()
+    }
+
+    functions {
+        write importProducts(BulkProductsInput) returns (ImportResponse)
+    }
+
+    @permission(expression: true, actions:[create,list])
+}
+
+api Web {
+    models {
+        Product
+    }
+}
