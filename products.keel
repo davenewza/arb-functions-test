@@ -14,7 +14,7 @@ message ImportResponse {
 model Product {
     fields {
         name Text
-        sku Text
+        sku Text @unique
     }
 
     operations {
